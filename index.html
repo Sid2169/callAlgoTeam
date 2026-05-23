@@ -1,194 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Team Structure Roadmap</title>
 
-<style>
-.wrap { padding: 1rem 0; font-family: var(--font-sans); }
-.phase-header { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-tertiary); margin: 1.8rem 0 0.8rem; }
-.role-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 14px 16px; margin-bottom: 10px; }
-.role-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
-.role-title { font-size: 14px; font-weight: 500; color: var(--color-text-primary); }
-.role-type { font-size: 11px; color: var(--color-text-secondary); margin-top: 2px; }
-.tag { display: inline-block; font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 100px; white-space: nowrap; }
-.tag-founder { background: var(--color-background-info); color: var(--color-text-info); }
-.tag-contractor { background: #EAF3DE; color: #3B6D11; }
-.tag-parttime { background: #FAEEDA; color: #854F0B; }
-.tag-fulltime { background: #FCEBEB; color: #A32D2D; }
-.role-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 12px; }
-.role-item { display: flex; flex-direction: column; gap: 2px; }
-.role-item-label { color: var(--color-text-tertiary); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; }
-.role-item-value { color: var(--color-text-secondary); }
-.role-duties { font-size: 12px; color: var(--color-text-secondary); line-height: 1.6; margin-top: 6px; border-top: 0.5px solid var(--color-border-tertiary); padding-top: 8px; }
-.cost-bar { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 12px 16px; margin-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
-.cost-item { text-align: center; }
-.cost-val { font-size: 16px; font-weight: 500; color: var(--color-text-primary); }
-.cost-label { font-size: 11px; color: var(--color-text-tertiary); }
-.note { font-size: 12px; color: var(--color-text-tertiary); margin-top: 1rem; line-height: 1.6; }
-.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-@media (max-width: 520px) { .two-col { grid-template-columns: 1fr; } .role-grid { grid-template-columns: 1fr; } }
-</style>
-<div class="wrap">
+  <style>
+    :root {
+      --font-sans: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
-<div class="phase-header">Phase 0–3 · Months 0–6 · Solo operation</div>
+      --bg-main: #0b0f14;
+      --bg-card: #111827;
+      --bg-card-hover: #172033;
+      --bg-secondary: #161d2d;
 
-<div class="role-card">
-  <div class="role-top">
-    <div>
-      <div class="role-title">Founder / Content Creator / Educator</div>
-      <div class="role-type">You — full time equivalent</div>
+      --border: rgba(255, 255, 255, 0.08);
+
+      --text-primary: #f5f7fa;
+      --text-secondary: #c2cad6;
+      --text-muted: #8d98aa;
+
+      --blue-bg: rgba(72, 149, 239, 0.15);
+      --blue-text: #7db8ff;
+
+      --green-bg: rgba(72, 187, 120, 0.14);
+      --green-text: #73e0a0;
+
+      --amber-bg: rgba(255, 183, 77, 0.14);
+      --amber-text: #ffc86a;
+
+      --red-bg: rgba(255, 107, 107, 0.14);
+      --red-text: #ff8f8f;
+
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+
+      --radius-lg: 18px;
+      --radius-md: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      padding: 48px 20px;
+      background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.08), transparent 28%),
+        radial-gradient(circle at top right, rgba(99, 102, 241, 0.08), transparent 24%),
+        var(--bg-main);
+
+      font-family: var(--font-sans);
+      color: var(--text-primary);
+
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1040px;
+    }
+
+    .wrap {
+      padding: 0.5rem 0;
+    }
+
+    .phase-header {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin: 2.4rem 0 1rem;
+      padding-left: 2px;
+    }
+
+    .role-card {
+      background: linear-gradient(
+        180deg,
+        rgba(255,255,255,0.02) 0%,
+        rgba(255,255,255,0.01) 100%
+      );
+
+      backdrop-filter: blur(12px);
+
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+
+      padding: 18px;
+      margin-bottom: 14px;
+
+      box-shadow: var(--shadow);
+
+      transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease;
+    }
+
+    .role-card:hover {
+      transform: translateY(-2px);
+      background: var(--bg-card-hover);
+      border-color: rgba(255,255,255,0.12);
+    }
+
+    .role-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+
+    .role-title {
+      font-size: 16px;
+      font-weight: 650;
+      line-height: 1.3;
+      color: var(--text-primary);
+    }
+
+    .role-type {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+      line-height: 1.5;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 6px 12px;
+      border-radius: 999px;
+
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .tag-founder {
+      background: var(--blue-bg);
+      color: var(--blue-text);
+    }
+
+    .tag-contractor {
+      background: var(--green-bg);
+      color: var(--green-text);
+    }
+
+    .tag-parttime {
+      background: var(--amber-bg);
+      color: var(--amber-text);
+    }
+
+    .tag-fulltime {
+      background: var(--red-bg);
+      color: var(--red-text);
+    }
+
+    .role-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .role-item {
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(255,255,255,0.04);
+
+      border-radius: 12px;
+
+      padding: 10px 12px;
+
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .role-item-label {
+      color: var(--text-muted);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 700;
+    }
+
+    .role-item-value {
+      color: var(--text-secondary);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .role-duties {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.85;
+
+      margin-top: 14px;
+      padding-top: 14px;
+
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .cost-bar {
+      margin-top: 2rem;
+
+      background: linear-gradient(
+        180deg,
+        rgba(255,255,255,0.03),
+        rgba(255,255,255,0.015)
+      );
+
+      border: 1px solid rgba(255,255,255,0.08);
+
+      border-radius: var(--radius-lg);
+
+      padding: 22px 18px;
+
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 16px;
+
+      box-shadow: var(--shadow);
+    }
+
+    .cost-item {
+      flex: 1;
+      min-width: 140px;
+      text-align: center;
+    }
+
+    .cost-val {
+      font-size: 22px;
+      font-weight: 750;
+      color: var(--text-primary);
+      letter-spacing: -0.03em;
+    }
+
+    .cost-label {
+      margin-top: 6px;
+      font-size: 11px;
+      line-height: 1.5;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .note {
+      margin-top: 1.4rem;
+
+      font-size: 13px;
+      line-height: 1.9;
+
+      color: var(--text-muted);
+
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(255,255,255,0.05);
+
+      padding: 16px 18px;
+      border-radius: var(--radius-md);
+    }
+
+    @media (max-width: 820px) {
+      .two-col,
+      .role-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .role-top {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      body {
+        padding: 24px 14px;
+      }
+
+      .cost-bar {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="wrap">
+
+      <div class="phase-header">
+        Phase 0–3 · Months 0–6 · Solo operation
+      </div>
+
+      <div class="role-card">
+        <div class="role-top">
+          <div>
+            <div class="role-title">
+              Founder / Content Creator / Educator
+            </div>
+
+            <div class="role-type">
+              You — full time equivalent
+            </div>
+          </div>
+
+          <span class="tag tag-founder">
+            Founder
+          </span>
+        </div>
+
+        <div class="role-grid">
+
+          <div class="role-item">
+            <span class="role-item-label">Time split</span>
+            <span class="role-item-value">
+              50% content, 30% product, 20% ops
+            </span>
+          </div>
+
+          <div class="role-item">
+            <span class="role-item-label">Cost</span>
+            <span class="role-item-value">
+              ₹0 salary (equity only, pre-revenue)
+            </span>
+          </div>
+
+          <div class="role-item">
+            <span class="role-item-label">
+              What breaks without this
+            </span>
+
+            <span class="role-item-value">
+              Everything
+            </span>
+          </div>
+
+          <div class="role-item">
+            <span class="role-item-label">Backup</span>
+            <span class="role-item-value">
+              None in phase 0–3
+            </span>
+          </div>
+
+        </div>
+
+        <div class="role-duties">
+          Daily Reels + carousels. Building and recording the course.
+          Writing all email sequences. Replying to DMs and student queries.
+          Running the launch. Managing Stripe, Teachable, ConvertKit.
+          This is a 60–70 hr/week role in the first 6 months — not a side project.
+        </div>
+      </div>
+
+      <div class="role-card">
+        <div class="role-top">
+          <div>
+            <div class="role-title">
+              Legal consultant
+            </div>
+
+            <div class="role-type">
+              Retained one-time, not ongoing
+            </div>
+          </div>
+
+          <span class="tag tag-contractor">
+            Contractor
+          </span>
+        </div>
+
+        <div class="role-grid">
+
+          <div class="role-item">
+            <span class="role-item-label">Engagement</span>
+            <span class="role-item-value">
+              One-time review + doc drafting
+            </span>
+          </div>
+
+          <div class="role-item">
+            <span class="role-item-label">Cost</span>
+            <span class="role-item-value">
+              ₹40,000–₹80,000 one-time
+            </span>
+          </div>
+
+          <div class="role-item">
+            <span class="role-item-label">
+              Specialisation needed
+            </span>
+
+            <span class="role-item-value">
+              FTC ad law + SEBI finfluencer rules
+            </span>
+          </div>
+
+          <div class="role-item">
+            <span class="role-item-label">
+              Deliverables
+            </span>
+
+            <span class="role-item-value">
+              Disclaimer framework, T&C, privacy policy, refund policy
+            </span>
+          </div>
+
+        </div>
+
+        <div class="role-duties">
+          Not a salaried team member. A one-time engagement before your first post.
+          You want a lawyer who has worked with digital educators or financial media companies,
+          not a general corporate lawyer.
+        </div>
+      </div>
+
+      <div class="phase-header">
+        Phase 3–4 · Months 6–10 · First contractor hires
+      </div>
+
+      <div class="two-col">
+
+        <div class="role-card">
+          <div class="role-top">
+            <div>
+              <div class="role-title">
+                Video editor
+              </div>
+
+              <div class="role-type">
+                Part-time contractor, 15–20 hrs/week
+              </div>
+            </div>
+
+            <span class="tag tag-parttime">
+              Part-time
+            </span>
+          </div>
+
+          <div class="role-grid">
+
+            <div class="role-item">
+              <span class="role-item-label">Cost</span>
+              <span class="role-item-value">
+                ₹15,000–₹25,000/mo
+              </span>
+            </div>
+
+            <div class="role-item">
+              <span class="role-item-label">When to hire</span>
+              <span class="role-item-value">
+                After first launch validates revenue
+              </span>
+            </div>
+
+          </div>
+
+          <div class="role-duties">
+            Cuts raw Reels footage into finished posts, adds captions,
+            motion graphics, and B-roll. Must understand your visual brand deeply.
+          </div>
+        </div>
+
+        <div class="role-card">
+          <div class="role-top">
+            <div>
+              <div class="role-title">
+                Community moderator
+              </div>
+
+              <div class="role-type">
+                Part-time contractor, 10–15 hrs/week
+              </div>
+            </div>
+
+            <span class="tag tag-parttime">
+              Part-time
+            </span>
+          </div>
+
+          <div class="role-grid">
+
+            <div class="role-item">
+              <span class="role-item-label">Cost</span>
+              <span class="role-item-value">
+                ₹10,000–₹18,000/mo
+              </span>
+            </div>
+
+            <div class="role-item">
+              <span class="role-item-label">When to hire</span>
+              <span class="role-item-value">
+                When community hits 150+ members
+              </span>
+            </div>
+
+          </div>
+
+          <div class="role-duties">
+            Daily moderation of Discord/Circle, community engagement,
+            question triage, and rule enforcement.
+          </div>
+        </div>
+
+      </div>
+
+      <div class="phase-header">
+        Phase 5 · Months 10–24 · Scaling hires
+      </div>
+
+      <div class="role-card">
+        <div class="role-top">
+          <div>
+            <div class="role-title">
+              Operations / Business Manager
+            </div>
+
+            <div class="role-type">
+              Full-time hire or elevated contractor
+            </div>
+          </div>
+
+          <span class="tag tag-fulltime">
+            Month 18–24
+          </span>
+        </div>
+
+        <div class="role-grid">
+
+          <div class="role-item">
+            <span class="role-item-label">Cost</span>
+            <span class="role-item-value">
+              ₹35,000–₹60,000/mo
+            </span>
+          </div>
+
+          <div class="role-item">
+            <span class="role-item-label">When to hire</span>
+            <span class="role-item-value">
+              When revenue exceeds ₹5L/month consistently
+            </span>
+          </div>
+
+          <div class="role-item">
+            <span class="role-item-label">Background</span>
+            <span class="role-item-value">
+              Operations, creator economy, or edtech
+            </span>
+          </div>
+
+          <div class="role-item">
+            <span class="role-item-label">What they own</span>
+            <span class="role-item-value">
+              Vendor management, launch ops, contractor coordination
+            </span>
+          </div>
+
+        </div>
+
+        <div class="role-duties">
+          Takes over operational complexity as the business scales —
+          freeing the founder to focus on education, content, and product.
+        </div>
+      </div>
+
+      <div class="cost-bar">
+
+        <div class="cost-item">
+          <div class="cost-val">₹0</div>
+          <div class="cost-label">
+            Team cost · Month 1–6
+          </div>
+        </div>
+
+        <div class="cost-item">
+          <div class="cost-val">₹33K–₹58K</div>
+          <div class="cost-label">
+            Team cost · Month 7–10
+          </div>
+        </div>
+
+        <div class="cost-item">
+          <div class="cost-val">₹65K–₹1.3L</div>
+          <div class="cost-label">
+            Team cost · Month 11–18
+          </div>
+        </div>
+
+        <div class="cost-item">
+          <div class="cost-val">₹1L–₹1.8L</div>
+          <div class="cost-label">
+            Team cost · Month 19–24
+          </div>
+        </div>
+
+        <div class="cost-item">
+          <div class="cost-val">6–7</div>
+          <div class="cost-label">
+            Peak team size · Month 24
+          </div>
+        </div>
+
+      </div>
+
+      <div class="note">
+        All costs in INR. Contractor rates assume India-based hires.
+        Performance marketer and ops manager are the two roles where
+        underpaying produces the worst outcomes — budget accordingly.
+        Never hire a salesperson before a marketer.
+        Never hire a marketer before validating organic conversion.
+      </div>
+
     </div>
-    <span class="tag tag-founder">Founder</span>
   </div>
-  <div class="role-grid">
-    <div class="role-item"><span class="role-item-label">Time split</span><span class="role-item-value">50% content, 30% product, 20% ops</span></div>
-    <div class="role-item"><span class="role-item-label">Cost</span><span class="role-item-value">₹0 salary (equity only, pre-revenue)</span></div>
-    <div class="role-item"><span class="role-item-label">What breaks without this</span><span class="role-item-value">Everything</span></div>
-    <div class="role-item"><span class="role-item-label">Backup</span><span class="role-item-value">None in phase 0–3</span></div>
-  </div>
-  <div class="role-duties">Daily Reels + carousels. Building and recording the course. Writing all email sequences. Replying to DMs and student queries. Running the launch. Managing Stripe, Teachable, ConvertKit. This is a 60–70 hr/week role in the first 6 months — not a side project.</div>
-</div>
 
-<div class="role-card">
-  <div class="role-top">
-    <div>
-      <div class="role-title">Legal consultant</div>
-      <div class="role-type">Retained one-time, not ongoing</div>
-    </div>
-    <span class="tag tag-contractor">Contractor</span>
-  </div>
-  <div class="role-grid">
-    <div class="role-item"><span class="role-item-label">Engagement</span><span class="role-item-value">One-time review + doc drafting</span></div>
-    <div class="role-item"><span class="role-item-label">Cost</span><span class="role-item-value">₹40,000–₹80,000 one-time</span></div>
-    <div class="role-item"><span class="role-item-label">Specialisation needed</span><span class="role-item-value">FTC ad law + SEBI finfluencer rules</span></div>
-    <div class="role-item"><span class="role-item-label">Deliverables</span><span class="role-item-value">Disclaimer framework, T&C, privacy policy, refund policy</span></div>
-  </div>
-  <div class="role-duties">Not a salaried team member. A one-time engagement before your first post. You want a lawyer who has worked with digital educators or financial media companies, not a general corporate lawyer. In India: look for advocates with SEBI advisory experience. Output is a document set you use for 2+ years.</div>
-</div>
-
-<div class="role-card">
-  <div class="role-top">
-    <div>
-      <div class="role-title">Brand / visual designer</div>
-      <div class="role-type">Project-based, one-time setup</div>
-    </div>
-    <span class="tag tag-contractor">Contractor</span>
-  </div>
-  <div class="role-grid">
-    <div class="role-item"><span class="role-item-label">Engagement</span><span class="role-item-value">2–3 week project</span></div>
-    <div class="role-item"><span class="role-item-label">Cost</span><span class="role-item-value">₹12,000–₹25,000</span></div>
-    <div class="role-item"><span class="role-item-label">Where to find</span><span class="role-item-value">Toptal India, Dribbble, Behance</span></div>
-    <div class="role-item"><span class="role-item-label">Deliverables</span><span class="role-item-value">Brand kit, carousel template, Reel thumbnail template, color system</span></div>
-  </div>
-  <div class="role-duties">Not a recurring hire. One-time brand system setup. You want someone who has designed for a creator or edtech brand — not an agency that does corporate logos. Portfolio should show clean, bold information design. This work gives you visual consistency for 12–18 months without ongoing cost.</div>
-</div>
-
-<div class="phase-header">Phase 3–4 · Months 6–10 · First contractor hires</div>
-
-<div class="two-col">
-<div class="role-card">
-  <div class="role-top">
-    <div>
-      <div class="role-title">Video editor</div>
-      <div class="role-type">Part-time contractor, 15–20 hrs/week</div>
-    </div>
-    <span class="tag tag-parttime">Part-time</span>
-  </div>
-  <div class="role-grid">
-    <div class="role-item"><span class="role-item-label">Cost</span><span class="role-item-value">₹15,000–₹25,000/mo</span></div>
-    <div class="role-item"><span class="role-item-label">When to hire</span><span class="role-item-value">After first launch validates revenue</span></div>
-  </div>
-  <div class="role-duties">Cuts raw Reels footage into finished posts, adds captions, motion graphics, B-roll. Must understand your visual brand deeply. Hire someone who watches creator content, not a corporate video editor. Give them 3 test edits before committing. This role frees 10–15 hrs/week of your time for content creation and product work.</div>
-</div>
-
-<div class="role-card">
-  <div class="role-top">
-    <div>
-      <div class="role-title">Community moderator</div>
-      <div class="role-type">Part-time contractor, 10–15 hrs/week</div>
-    </div>
-    <span class="tag tag-parttime">Part-time</span>
-  </div>
-  <div class="role-grid">
-    <div class="role-item"><span class="role-item-label">Cost</span><span class="role-item-value">₹10,000–₹18,000/mo</span></div>
-    <div class="role-item"><span class="role-item-label">When to hire</span><span class="role-item-value">When community hits 150+ members</span></div>
-  </div>
-  <div class="role-duties">Daily check of Discord/Circle. Answers basic questions, escalates technical ones to you, enforces community rules, posts weekly engagement prompts, flags student wins for content repurposing. Critical: must have enough trading/Python knowledge to moderate credibly. A moderator who can't tell a good backtest from a bad one creates incidents.</div>
-</div>
-</div>
-
-<div class="role-card">
-  <div class="role-top">
-    <div>
-      <div class="role-title">Customer success / support</div>
-      <div class="role-type">Part-time contractor, 10 hrs/week</div>
-    </div>
-    <span class="tag tag-parttime">Part-time</span>
-  </div>
-  <div class="role-grid">
-    <div class="role-item"><span class="role-item-label">Cost</span><span class="role-item-value">₹8,000–₹15,000/mo</span></div>
-    <div class="role-item"><span class="role-item-label">When to hire</span><span class="role-item-value">When refund/query volume exceeds 5/day</span></div>
-    <div class="role-item"><span class="role-item-label">Tools they run</span><span class="role-item-value">Freshdesk or Notion helpdesk, Stripe disputes</span></div>
-    <div class="role-item"><span class="role-item-label">Key metric</span><span class="role-item-value">Refund rate and chargeback rate</span></div>
-  </div>
-  <div class="role-duties">Handles all inbound email queries, refund requests, and Stripe dispute responses. Maintains a complaint log. Escalates anything legally sensitive immediately. This role directly protects your payment processor standing — a well-handled refund request never becomes a chargeback. Needs a clear decision tree: what to approve immediately, what to escalate, what to deny.</div>
-</div>
-
-<div class="phase-header">Phase 5 · Months 10–24 · Scaling hires</div>
-
-<div class="two-col">
-<div class="role-card">
-  <div class="role-top">
-    <div>
-      <div class="role-title">Performance marketer</div>
-      <div class="role-type">Part-time or agency, 15–20 hrs/week</div>
-    </div>
-    <span class="tag tag-parttime">Part-time</span>
-  </div>
-  <div class="role-grid">
-    <div class="role-item"><span class="role-item-label">Cost</span><span class="role-item-value">₹20,000–₹45,000/mo</span></div>
-    <div class="role-item"><span class="role-item-label">When to hire</span><span class="role-item-value">After ROAS is proven at small budget</span></div>
-  </div>
-  <div class="role-duties">Manages paid Instagram/Facebook and Google ads. Builds lookalike audiences from your email list. Runs A/B tests on ad creative. Monitors ROAS weekly. Must have experience with financial services content — Meta's ad review for finance is strict and someone without experience wastes budget on rejected ads. Agency option is valid here if budget allows (₹30,000–₹60,000/mo including ad spend management).</div>
-</div>
-
-<div class="role-card">
-  <div class="role-top">
-    <div>
-      <div class="role-title">Content research assistant</div>
-      <div class="role-type">Part-time, 15 hrs/week</div>
-    </div>
-    <span class="tag tag-parttime">Part-time</span>
-  </div>
-  <div class="role-grid">
-    <div class="role-item"><span class="role-item-label">Cost</span><span class="role-item-value">₹12,000–₹20,000/mo</span></div>
-    <div class="role-item"><span class="role-item-label">When to hire</span><span class="role-item-value">Month 14–18</span></div>
-  </div>
-  <div class="role-duties">Sources content ideas from community questions, Reddit, Quora finance threads, and competitor gaps. Researches topics before you script them. Monitors analytics to identify which content formats are performing. Can also repurpose long-form YouTube content into carousel scripts. Strong Python or finance background essential — generic content researchers don't understand what's technically accurate in this niche.</div>
-</div>
-</div>
-
-<div class="role-card">
-  <div class="role-top">
-    <div>
-      <div class="role-title">Operations / business manager</div>
-      <div class="role-type">Full-time hire or elevated contractor</div>
-    </div>
-    <span class="tag tag-fulltime">Month 18–24</span>
-  </div>
-  <div class="role-grid">
-    <div class="role-item"><span class="role-item-label">Cost</span><span class="role-item-value">₹35,000–₹60,000/mo</span></div>
-    <div class="role-item"><span class="role-item-label">When to hire</span><span class="role-item-value">When revenue exceeds ₹5L/month consistently</span></div>
-    <div class="role-item"><span class="role-item-label">Background</span><span class="role-item-value">Operations, creator economy, or edtech</span></div>
-    <div class="role-item"><span class="role-item-label">What they own</span><span class="role-item-value">Vendor management, launch ops, contractor coordination</span></div>
-  </div>
-  <div class="role-duties">By month 18 you will have 4–5 contractors all requiring coordination, a course platform, an email system, payment processors, a community, and launch logistics. This is a full-time operations job that you currently do alongside content creation and teaching. The ops manager takes over everything except content and product — freeing you to be the educator, not the administrator. Do not hire this role early. It is expensive and wasted before the system is complex enough to need it.</div>
-</div>
-
-<div class="cost-bar">
-  <div class="cost-item"><div class="cost-val">₹0</div><div class="cost-label">Team cost, month 1–6</div></div>
-  <div class="cost-item"><div class="cost-val">₹33K–₹58K</div><div class="cost-label">Team cost, month 7–10/mo</div></div>
-  <div class="cost-item"><div class="cost-val">₹65K–₹1.3L</div><div class="cost-label">Team cost, month 11–18/mo</div></div>
-  <div class="cost-item"><div class="cost-val">₹1L–₹1.8L</div><div class="cost-label">Team cost, month 19–24/mo</div></div>
-  <div class="cost-item"><div class="cost-val">6–7</div><div class="cost-label">Peak team size at month 24</div></div>
-</div>
-
-<p class="note">All costs in INR. Contractor rates assume India-based hires. Performance marketer and ops manager are the two roles where underpaying produces the worst outcomes — budget accordingly. Never hire a salesperson before a marketer. Never hire a marketer before validating organic conversion.</p>
-
-</div>
+</body>
+</html>
